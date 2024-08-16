@@ -15,5 +15,10 @@ class NaiveDense:#A blueprint for a naive dense layer, which when initialised ma
     
     def weights(self):
         return [self.W, self.b]#This method is created to enable easy retrieval of the weights. Although maybe in the main code you could use print(name_of_instance.W) or .b instead.
+
+class NaiveSequential():#Chains layers together. Why is this needed? Is it not possible to just call one after the other? Or is it
+    def __init__(self,layers):
+        self.layers=layers#So the layers themselves are actually part of the object.
+
 DenseLayer=NaiveDense(2,3,"Blah")
 
