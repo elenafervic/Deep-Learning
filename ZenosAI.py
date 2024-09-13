@@ -64,12 +64,12 @@ def one_training_set(model,images_batch,labels_batch):
     return average_loss #Presumably we may use this later.
 #This is one of the training loops for one batch. We will later do each batch multiple times (different epochs).
 
-learning_rate=1e-3
+learning_rate=1e-3#This is a global variable because it is assumed the learning rate won't change during the learning process.
 def update_weights(gradients,weights):#Must have defined th elearning rate already.
     for g, w in zip(gradients,weights):
         w.assign_sub(g*learning_rate)#assign_sub is the equivalent of -= for tensorflow variables (of which w is an example of)
         #This is a really simple optimizer (gradient descent), we move w a little in the direction of fastest descent (-gradient).
-        #WHYYYYYYY Is there this weird loop? What is the point of it? Also, why don't we call learning rate
+        
 #Can now make a model:
 model=NaiveSequential([
     NaiveDense(input_size=28*28,output_size=512,activation=tf.nn.relu),
