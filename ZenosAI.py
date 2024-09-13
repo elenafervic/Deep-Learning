@@ -2,6 +2,7 @@ import tensorflow as tf
 import math
 from tensorflow.keras import optimizers
 from tensorflow.keras.datasets import mnist
+import numpy as np
 
 class NaiveDense:#A blueprint for a naive dense layer, which when initialised makes an object (a naive dense layer).
     def __init__(self,input_size,output_size,activation):
@@ -103,6 +104,10 @@ test_images=test_images.astype("float32")/255
 
 fit(model,train_images,train_labels,epochs=10,batch_size=128)
 
-
-
+#Now to test the model.
+predictions=model(test_images)#It has already been trained thanks to the fit() function we just ran.
+predictions=predictions.numpy()#Turns the tensor flow tensor into a numpy tensor.
+predicted_labels=np.argmax(predictions,axis=1)#I think that for each image, it tells you the indice of the largest of the probabilities. This happens to match the numbers they correspond to (i.e indice 0 corresponds to probability that it's a 0).
+matches=predicted_labels==test_labels#Element-wise comparison. It gives a boolean array. 
+print(f"accuracy:{matches.mean():.2f}")#Mean of a boolean array treats true as 1 and false as 0, so it gives a mean of how many trues vs false you have.
 
