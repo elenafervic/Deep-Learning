@@ -28,7 +28,7 @@ class NaiveSequential():#Chains layers together. This is used to make the model,
         x=inputs
         for layer in self.layers:
             x=layer(x)#so the output of one layer goes on to be fed into the next layer. Do we need past values of x?
-            return x
+        return x
     @property
     def weights(self):#Presumably this is done every time you call the weights method.
         weights=[]#Creates an empty list
