@@ -55,7 +55,8 @@ def one_training_step(model,images_batch,labels_batch):
     with tf.GradientTape() as tape:
         #Make predictions
         predictions=model(images_batch)
-
+        print("This is predictions",predictions)
+        print("This is the labels batch",labels_batch)
         #Calculate the loss
         per_sample_losses=tf.keras.losses.sparse_categorical_crossentropy(labels_batch,predictions)#The predictions have are in the form of probability to have each label (eg in our case its a 1D array with 10 probabilities). Meanwhile the "labels" variable just have the correct number.
         average_loss=tf.reduce_mean(per_sample_losses)#Each pair of label prediction and label have a loss, so we average the loss to see how close the predictions are to reality.
@@ -75,6 +76,7 @@ def one_training_step(model,images_batch,labels_batch):
         #This is a really simple optimizer (gradient descent), we move w a little in the direction of fastest descent (-gradient).
 
 optimizer=optimizers.legacy.SGD(learning_rate=1e-3)#Presumably we are creating an optimizer object
+
 
 def update_weights(gradients,weights):# We have defined the optimizer
     optimizer.apply_gradients(zip(gradients,weights))
@@ -97,7 +99,10 @@ model=NaiveSequential([
     ]) #We create a Naive sequential object called model with two deep layers.
 
 (train_images,train_labels), (test_images,test_labels)=mnist.load_data()
+print(train_images.shape)
+print(type(train_images))
 train_images=train_images.reshape((60000,28*28))
+print(train_images.shape)
 train_images=train_images.astype("float32")/255
 test_images=test_images.reshape((10000,28*28))
 test_images=test_images.astype("float32")/255
