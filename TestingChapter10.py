@@ -7,19 +7,17 @@ dummy_dataset = keras.utils.timeseries_dataset_from_array(
     data=Numbers[0:-3],#From begginign to the -3th term, not including the -3 term. Not generally good, I usually want it to use all the dataset.
     targets=Numbers[3:],
     sequence_length=3,
-    batch_size=2,
 )
 
+#Dummy dataset is a group of tuples, one tuple per batch eg if we had 2 batches: (TimeSeries_Batch_1,Targets_Batch_1),(TimeSeries_Batch_2,Targets_Batch_2)
+#Only way I can figure out to separate a tuple is:
+for TimeSeries_Batch,Targets_Batch in dummy_dataset:
+    #Use within the loop, or afterwards too if there is only one batch.
 
+#a=dummy_dataset[0] This doesn't work.
 
+#If there were three different batches you could do this to separate all three tuples of batches from each other.
 a,b,c= dummy_dataset
 print("a",a)
 print("b",b)
 print("c",c)
-print("Stop")
-for inputs, targets in dummy_dataset:#This loops through the batches. Inputs holds the current batch
-    print(inputs)
-    print(targets)
-    for i in range(inputs.shape[0]):#Loops through all the time series. inputs.shape[0] is the number of time series within that batch (most batches have same size, but last batch may have less).
-        print(i)
-        print([int(x) for x in inputs[i]], int(targets[i]))#It loops through all the values in a specific time series
